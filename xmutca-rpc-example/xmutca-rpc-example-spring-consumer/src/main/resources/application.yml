@@ -1,0 +1,8 @@
+rpc:
+  consumer:
+    - timeout: 1000
+      remoteAddress: localhost:8888
+      metadata:
+        group: "order"
+        serviceName: "test"
+        version: "v1.0.0"

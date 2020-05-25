@@ -1,0 +1,10 @@
+rpc:
+  provider:
+    corePoolSize: 60
+    maxPoolSize: 300
+    port: 8888
+    scanPackage: com.xmutca.rpc.provider.facade
+    metadata:
+      group: "order"
+      serviceName: "test"
+      version: "v1.0.0"

@@ -1,0 +1,2 @@
+polling=com.xmutca.rpc.core.consumer.loadbalance.PollingLoadBalancer
+random=com.xmutca.rpc.core.consumer.loadbalance.RandomLoadBalancer

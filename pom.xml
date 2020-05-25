@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.xmutca</groupId>
+	<artifactId>xmutca-rpc</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>xmutca-rpc-core</module>
+		<module>xmutca-rpc-example</module>
+		<module>xmutca-rpc-local</module>
+		<module>xmutca-rpc-spring</module>
+	</modules>
+
+	<properties>
+		<spring-boot.version>2.1.2.RELEASE</spring-boot.version>
+		<netty-all.version>4.0.36.Final</netty-all.version>
+		<assertj.version>3.16.1</assertj.version>
+		<reflections.version>0.9.12</reflections.version>
+		<lombok.version>1.18.12</lombok.version>
+		<guava.version>18.0</guava.version>
+		<typesafe.version>1.4.0</typesafe.version>
+		<commons-lang3.version>3.9</commons-lang3.version>
+		<slf4j-api.version>1.7.21</slf4j-api.version>
+		<logback.version>1.1.7</logback.version>
+		<fastjson.version>1.2.60</fastjson.version>
+		<xmutca-rpc.version>0.0.1-SNAPSHOT</xmutca-rpc.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- SpringBoot的依赖配置-->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>io.netty</groupId>
+				<artifactId>netty-all</artifactId>
+				<version>${netty-all.version}</version>
+			</dependency>
+
+			<!-- 工具 -->
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>${lombok.version}</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>${fastjson.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>${guava.version}</version>
+				<scope>compile</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>com.typesafe</groupId>
+				<artifactId>config</artifactId>
+				<version>${typesafe.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>${commons-lang3.version}</version>
+			</dependency>
+
+			<!-- 反射 -->
+			<dependency>
+				<groupId>org.reflections</groupId>
+				<artifactId>reflections</artifactId>
+				<version>${reflections.version}</version>
+			</dependency>
+
+			<!-- 断言 -->
+			<dependency>
+				<groupId>org.assertj</groupId>
+				<artifactId>assertj-core</artifactId>
+				<version>${assertj.version}</version>
+			</dependency>
+
+			<!-- 日志 -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j-api.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-core</artifactId>
+				<version>${logback.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+				<version>${logback.version}</version>
+			</dependency>
+
+			<!-- 系统pom -->
+			<dependency>
+				<groupId>com.xmutca</groupId>
+				<artifactId>xmutca-rpc-core</artifactId>
+				<version>${xmutca-rpc.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.xmutca</groupId>
+				<artifactId>xmutca-rpc-local</artifactId>
+				<version>${xmutca-rpc.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.xmutca</groupId>
+				<artifactId>xmutca-rpc-spring</artifactId>
+				<version>${xmutca-rpc.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<!-- 每个项目都依赖 -->
+	<dependencies>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+	</dependencies>
+</project>
