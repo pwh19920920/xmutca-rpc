@@ -25,6 +25,6 @@ public class Server {
         rpcConfig.setMetadata(rpcMetadata);
 
         // 具体实现从服务里获取，然后创建实例
-        ServerExchange.start(rpcConfig, "");
+        ServerExchange.start(rpcConfig, "nacos://localhost:8848");
     }
 }
