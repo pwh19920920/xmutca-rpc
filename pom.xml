@@ -12,6 +12,7 @@
 		<module>xmutca-rpc-example</module>
 		<module>xmutca-rpc-local</module>
 		<module>xmutca-rpc-spring</module>
+		<module>xmutca-rpc-registry-nacos</module>
 	</modules>
 
 	<properties>
@@ -27,6 +28,7 @@
 		<logback.version>1.1.7</logback.version>
 		<fastjson.version>1.2.60</fastjson.version>
 		<xmutca-rpc.version>0.0.1-SNAPSHOT</xmutca-rpc.version>
+		<nacos.version>1.2.1</nacos.version>
 	</properties>
 
 	<dependencyManagement>
@@ -79,6 +81,13 @@
 				<version>${commons-lang3.version}</version>
 			</dependency>
 
+
+			<dependency>
+				<groupId>com.alibaba.nacos</groupId>
+				<artifactId>nacos-client</artifactId>
+				<version>${nacos.version}</version>
+			</dependency>
+
 			<!-- 反射 -->
 			<dependency>
 				<groupId>org.reflections</groupId>
@@ -128,6 +137,12 @@
 			<dependency>
 				<groupId>com.xmutca</groupId>
 				<artifactId>xmutca-rpc-spring</artifactId>
+				<version>${xmutca-rpc.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.xmutca</groupId>
+				<artifactId>xmutca-rpc-registry-nacos</artifactId>
 				<version>${xmutca-rpc.version}</version>
 			</dependency>
 		</dependencies>

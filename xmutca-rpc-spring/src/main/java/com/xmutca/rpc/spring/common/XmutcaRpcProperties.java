@@ -21,6 +21,11 @@ import java.util.List;
 public class XmutcaRpcProperties {
 
     /**
+     * 注册地址
+     */
+    private String registry;
+
+    /**
      * consumer配置
      */
     private List<RpcClientConfig> consumer;

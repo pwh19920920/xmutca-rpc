@@ -1,6 +1,7 @@
 package com.xmutca.rpc.core.consumer.loadbalance;
 
 import com.xmutca.rpc.core.consumer.LoadBalancer;
+import com.xmutca.rpc.core.transport.Client;
 import com.xmutca.rpc.core.transport.ClientGroup;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 public abstract class AbstractLoadBalancer implements LoadBalancer {
 
     @Override
-    public ClientGroup select(List<ClientGroup> groups) {
+    public Client select(ClientGroup groups) {
         // 判空
         if (null == groups || groups.isEmpty()) {
             return null;
@@ -33,5 +34,5 @@ public abstract class AbstractLoadBalancer implements LoadBalancer {
      * @param groups
      * @return
      */
-    protected abstract ClientGroup doSelect(List<ClientGroup> groups);
+    protected abstract Client doSelect(ClientGroup groups);
 }

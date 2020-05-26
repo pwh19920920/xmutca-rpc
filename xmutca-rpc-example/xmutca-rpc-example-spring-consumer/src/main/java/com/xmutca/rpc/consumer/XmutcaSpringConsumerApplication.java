@@ -9,9 +9,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @EnableXmutcaRpc
 @SpringBootApplication
-public class XmutcaSpringProviderApplication {
+public class XmutcaSpringConsumerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(XmutcaSpringProviderApplication.class, args);
+        SpringApplication.run(XmutcaSpringConsumerApplication.class, args);
     }
 }

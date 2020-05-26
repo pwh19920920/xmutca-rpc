@@ -1,8 +1,9 @@
 rpc:
+  registry: nacos://localhost:8848
   provider:
     corePoolSize: 60
     maxPoolSize: 300
-    port: 8888
+    port: 8886
     scanPackage: com.xmutca.rpc.provider.facade
     metadata:
       group: "order"

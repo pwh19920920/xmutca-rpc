@@ -4,9 +4,11 @@ import com.xmutca.rpc.core.common.Constants;
 import com.xmutca.rpc.core.serialize.CodecType;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 
 import java.net.InetSocketAddress;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -81,6 +83,10 @@ public class RpcClientConfig extends RpcConfig {
     }
 
     public InetSocketAddress getRemoteAddress() {
+        if (StringUtils.isBlank(remoteAddress)) {
+            return null;
+        }
+
         String[] address = remoteAddress.split(":");
         if (address.length != ADDRESS_LENGTH) {
             throw new RuntimeException("地址错误");

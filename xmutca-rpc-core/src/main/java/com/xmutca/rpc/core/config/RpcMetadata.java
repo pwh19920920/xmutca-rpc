@@ -33,7 +33,7 @@ public class RpcMetadata {
      * @return
      */
     public String getUniqueMetaName() {
-        return String.format("%s/%s/%s", serviceName, group, version);
+        return String.format("%s:%s:%s", serviceName, group, version);
     }
 
     /**

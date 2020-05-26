@@ -1,7 +1,7 @@
 rpc:
+  registry: nacos://localhost:8848
   consumer:
     - timeout: 1000
-      remoteAddress: localhost:8888
       metadata:
         group: "order"
         serviceName: "test"

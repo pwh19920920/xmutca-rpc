@@ -1,5 +1,6 @@
 package com.xmutca.rpc.provider;
 
+import com.alibaba.nacos.api.exception.NacosException;
 import com.xmutca.rpc.core.config.RpcMetadata;
 import com.xmutca.rpc.core.config.RpcServerConfig;
 import com.xmutca.rpc.core.rpc.exchange.ServerExchange;
@@ -24,6 +25,6 @@ public class Server {
         rpcConfig.setMetadata(rpcMetadata);
 
         // 具体实现从服务里获取，然后创建实例
-        ServerExchange.start(rpcConfig);
+        ServerExchange.start(rpcConfig, "");
     }
 }

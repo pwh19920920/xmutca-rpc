@@ -69,7 +69,7 @@ public abstract class AbstractClusterInvoker implements ClusterInvoker {
 
     @Override
     public Object invoke(RpcRequest rpcRequest) {
-        List<ClientGroup> groups = filter();
+        ClientGroup groups = filter();
         return doInvoke(rpcRequest, rpcClientConfig, groups).getResult();
     }
 
@@ -127,14 +127,14 @@ public abstract class AbstractClusterInvoker implements ClusterInvoker {
      * @param groups
      * @return
      */
-    protected abstract RpcResponse doInvoke(RpcRequest rpcRequest, RpcClientConfig rpcClientConfig, List<ClientGroup> groups);
+    protected abstract RpcResponse doInvoke(RpcRequest rpcRequest, RpcClientConfig rpcClientConfig, ClientGroup groups);
 
     /**
      * 目录搜索
      *
      * @return
      */
-    protected List<ClientGroup> filter() {
+    protected ClientGroup filter() {
         return ClientPool.filter(rpcMetadata);
     }
 
@@ -143,12 +143,12 @@ public abstract class AbstractClusterInvoker implements ClusterInvoker {
      *
      * @return
      */
-    protected Client select(List<ClientGroup> groups) {
+    protected Client select(ClientGroup groups) {
         // 负载均衡
-        ClientGroup group = loadBalancer.select(groups);
-        if (null == group) {
+        Client client = loadBalancer.select(groups);
+        if (null == client) {
             throw new RpcException("fail to send, not channel active");
         }
-        return group.next();
+        return client;
     }
 }

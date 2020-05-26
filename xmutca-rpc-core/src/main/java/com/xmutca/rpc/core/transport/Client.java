@@ -14,6 +14,11 @@ import java.net.InetSocketAddress;
  */
 public interface Client {
 
+    /**
+     * 初始化
+     * @param rpcClientConfig
+     * @param remoteAddress
+     */
     void init(RpcClientConfig rpcClientConfig, InetSocketAddress remoteAddress);
 
     /**

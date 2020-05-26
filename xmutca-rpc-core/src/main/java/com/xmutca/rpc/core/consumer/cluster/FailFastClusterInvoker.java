@@ -16,7 +16,7 @@ import java.util.List;
 public class FailFastClusterInvoker extends AbstractClusterInvoker {
 
     @Override
-    protected RpcResponse doInvoke(RpcRequest rpcRequest, RpcClientConfig rpcClientConfig, List<ClientGroup> groups) {
+    protected RpcResponse doInvoke(RpcRequest rpcRequest, RpcClientConfig rpcClientConfig, ClientGroup groups) {
         Client client = select(groups);
         return client.send(rpcRequest);
     }

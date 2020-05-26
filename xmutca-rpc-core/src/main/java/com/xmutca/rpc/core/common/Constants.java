@@ -93,4 +93,9 @@ public final class Constants {
      * 默认扫描包地址
      */
     public static final String DEFAULT_PACKAGE = "com";
+
+    /**
+     * 唯一服务字符串
+     */
+    public static final String REGISTER_SERVICE_NAME = "uniqueMetaName";
 }

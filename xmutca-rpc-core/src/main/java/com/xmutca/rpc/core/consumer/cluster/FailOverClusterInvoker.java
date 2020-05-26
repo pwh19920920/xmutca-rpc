@@ -19,7 +19,7 @@ import java.util.List;
 public class FailOverClusterInvoker extends AbstractClusterInvoker {
 
     @Override
-    protected RpcResponse doInvoke(RpcRequest rpcRequest, RpcClientConfig rpcClientConfig, List<ClientGroup> groups) {
+    protected RpcResponse doInvoke(RpcRequest rpcRequest, RpcClientConfig rpcClientConfig, ClientGroup groups) {
         int retries = rpcClientConfig.getRetries();
         return doExecute(0, retries, rpcRequest, groups);
     }
@@ -32,7 +32,7 @@ public class FailOverClusterInvoker extends AbstractClusterInvoker {
      * @param groups
      * @return
      */
-    public RpcResponse doExecute(int curr, int max, RpcRequest rpcRequest, List<ClientGroup> groups) {
+    public RpcResponse doExecute(int curr, int max, RpcRequest rpcRequest, ClientGroup groups) {
         RpcException lastEx;
 
         try {

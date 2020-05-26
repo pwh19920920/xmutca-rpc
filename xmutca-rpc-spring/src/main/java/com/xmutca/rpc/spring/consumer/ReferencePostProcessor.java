@@ -26,7 +26,7 @@ public class ReferencePostProcessor implements BeanPostProcessor {
         }
 
         // 启动客户端
-        ClientExchange.start(xmutcaRpcProperties.getConsumer());
+        ClientExchange.start(xmutcaRpcProperties.getConsumer(), xmutcaRpcProperties.getRegistry());
     }
 
     @Override

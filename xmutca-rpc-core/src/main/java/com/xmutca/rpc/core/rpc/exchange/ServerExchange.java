@@ -1,9 +1,9 @@
 package com.xmutca.rpc.core.rpc.exchange;
 
 import com.xmutca.rpc.core.common.ExtensionLoader;
-import com.xmutca.rpc.core.config.RpcMetadata;
 import com.xmutca.rpc.core.config.RpcServerConfig;
 import com.xmutca.rpc.core.provider.ProviderEntry;
+import com.xmutca.rpc.core.rpc.registry.RegistryWrapper;
 import com.xmutca.rpc.core.transport.Server;
 
 /**
@@ -21,9 +21,10 @@ public class ServerExchange {
     /**
      * 启动服务
      * @param serverConfig
+     * @param registry
      * @throws InterruptedException
      */
-    public static void start(RpcServerConfig serverConfig) throws InterruptedException {
+    public static void start(RpcServerConfig serverConfig, String registry) throws InterruptedException {
         Server server = ExtensionLoader.getExtensionLoader(Server.class).getExtension(serverConfig.getTransporterType());
         server.init(serverConfig);
 
@@ -33,7 +34,7 @@ public class ServerExchange {
         }
 
         // 注册 + 监听 + 心跳
-        RpcMetadata metadata = serverConfig.getMetadata();
+        RegistryWrapper.register(serverConfig, registry);
 
         // 绑定
         server.bind();

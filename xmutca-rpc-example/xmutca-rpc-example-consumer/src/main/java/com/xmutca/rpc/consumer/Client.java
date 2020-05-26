@@ -33,7 +33,7 @@ public class Client {
                 .metadata(rpcMetadata)
                 .build();
 
-        ClientExchange.start(Arrays.asList(rpcConfig));
+        ClientExchange.start(Arrays.asList(rpcConfig), "");
 
         GenericInvoker invoker = GenericProxyFactory
                 .factory(HelloService.class)

@@ -36,7 +36,7 @@ public class ClientTest {
                 .metadata(rpcMetadata)
                 .build();
 
-        ClientExchange.start(Arrays.asList(rpcConfig));
+        ClientExchange.start(Arrays.asList(rpcConfig), "");
 
 //        for (int i = 0; i < 100; i++) {
 //            Thread.sleep(20000);

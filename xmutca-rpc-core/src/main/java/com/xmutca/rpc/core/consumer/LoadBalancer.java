@@ -1,5 +1,6 @@
 package com.xmutca.rpc.core.consumer;
 
+import com.xmutca.rpc.core.transport.Client;
 import com.xmutca.rpc.core.transport.ClientGroup;
 
 import java.util.List;
@@ -17,5 +18,5 @@ public interface LoadBalancer {
      * @param groups
      * @return
      */
-    ClientGroup select(List<ClientGroup> groups);
+    Client select(ClientGroup groups);
 }

@@ -1,5 +1,6 @@
 package com.xmutca.rpc.core.consumer.loadbalance;
 
+import com.xmutca.rpc.core.transport.Client;
 import com.xmutca.rpc.core.transport.ClientGroup;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class RandomLoadBalancer extends AbstractLoadBalancer {
     }
 
     @Override
-    protected ClientGroup doSelect(List<ClientGroup> groups) {
+    protected Client doSelect(ClientGroup groups) {
         ThreadLocalRandom random = ThreadLocalRandom.current();
         return groups.get(random.nextInt(groups.size()));
     }

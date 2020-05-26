@@ -1,5 +1,7 @@
 package com.xmutca.rpc.spring.provider;
 
+import com.xmutca.rpc.core.common.ExtensionLoader;
+import com.xmutca.rpc.core.provider.ProviderLoader;
 import com.xmutca.rpc.core.rpc.exchange.ServerExchange;
 import com.xmutca.rpc.spring.common.XmutcaRpcProperties;
 import org.springframework.boot.CommandLineRunner;
@@ -26,6 +28,6 @@ public class ProviderCommand implements CommandLineRunner {
         }
 
         // 启动提供者容器
-        ServerExchange.start(xmutcaRpcProperties.getProvider());
+        ServerExchange.start(xmutcaRpcProperties.getProvider(), xmutcaRpcProperties.getRegistry());
     }
 }

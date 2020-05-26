@@ -1,1 +1,1 @@
-local=com.xmutca.rpc.spring.provider.ProviderSpringLoader
+spring=com.xmutca.rpc.spring.provider.ProviderSpringLoader
