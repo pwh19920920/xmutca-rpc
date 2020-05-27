@@ -9,6 +9,8 @@ import com.xmutca.rpc.core.transport.ClientGroup;
 import java.util.List;
 
 /**
+ * 快速失败
+ * 只发起一次调用，失败立即报错,通常用于非幂等性的写操作。 如果有机器正在重启，可能会出现调用失败
  * @version Revision: 0.0.1
  * @author: weihuang.peng
  * @Date: 2019-11-08

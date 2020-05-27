@@ -70,6 +70,9 @@ public abstract class AbstractClusterInvoker implements ClusterInvoker {
     @Override
     public Object invoke(RpcRequest rpcRequest) {
         ClientGroup groups = filter();
+        if (groups.isEmpty()) {
+            throw new RpcException("Failed to invoke the method, No provider available for the service " + rpcRequest.getFullName());
+        }
         return doInvoke(rpcRequest, rpcClientConfig, groups).getResult();
     }
 

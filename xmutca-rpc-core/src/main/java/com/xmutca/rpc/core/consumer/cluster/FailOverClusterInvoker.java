@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 /**
+ * 失败自动切换
+ * 失败转移，当出现失败，重试其它服务器，通常用于读操作，但重试会带来更长延迟。
  * @version Revision: 0.0.1
  * @author: weihuang.peng
  * @Date: 2019-11-08

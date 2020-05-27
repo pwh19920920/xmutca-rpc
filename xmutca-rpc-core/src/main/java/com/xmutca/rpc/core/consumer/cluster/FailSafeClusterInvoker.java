@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 /**
+ * 失败安全
+ * 快速失败，只发起一次调用，失败立即报错，通常用于非幂等性的写操作。
  * @version Revision: 0.0.1
  * @author: weihuang.peng
  * @Date: 2019-11-08

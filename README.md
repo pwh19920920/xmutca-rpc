@@ -12,7 +12,7 @@ Xmutca-rpc是一个基于netty开发的分布式服务框架，提供稳定高�
 ## 实现功能
 - 1.核心实现：SPI扩展，支持动态加载拓展实现，具体可以看实现类ExtensionLoader
 - 2.负载均衡：现在已支持轮训负载，随机负载，也可自定义
-- 3.集群容错：FailFast快速失败、 FailOver故障切换，FailSafe故障安全
+- 3.集群容错：FailFast快速失败、 FailOver故障切换，FailSafe故障安全, FailBack失败恢复，Broadcast广播调用
 - 4.注册发现：目前支持接入nacos
 - 5.容器支持：支持本地java容器，支持spring容器
 - 6.注解拓展：支持注解加载提供者，注解获取远程rpc对象

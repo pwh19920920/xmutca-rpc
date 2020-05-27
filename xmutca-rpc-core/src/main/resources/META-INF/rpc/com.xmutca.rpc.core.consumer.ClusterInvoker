@@ -1,3 +1,5 @@
 failFast=com.xmutca.rpc.core.consumer.cluster.FailFastClusterInvoker
 failOver=com.xmutca.rpc.core.consumer.cluster.FailOverClusterInvoker
 failSafe=com.xmutca.rpc.core.consumer.cluster.FailSafeClusterInvoker
+failBack=com.xmutca.rpc.core.consumer.cluster.FailBackClusterInvoker
+broadcast=com.xmutca.rpc.core.consumer.cluster.BroadcastClusterInvoker
