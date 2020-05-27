@@ -8,7 +8,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.net.InetSocketAddress;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -35,7 +34,7 @@ public class RpcClientConfig extends RpcConfig {
     /**
      * 序列化类型
      */
-    private CodecType codecType = CodecType.CODEC_TYPE_JSON;
+    private String codecType = CodecType.CODEC_TYPE_PROTO_STUFF.getSimpleName();
 
     /**
      * 传输实现
@@ -67,6 +66,30 @@ public class RpcClientConfig extends RpcConfig {
      * 容错策略
      */
     private String cluster = Constants.DEFAULT_CLUSTER;
+
+    /**
+     * 获取序列化方式
+     * @return
+     */
+    public CodecType getCodecType() {
+        return CodecType.get(codecType);
+    }
+
+    /**
+     * 设置序列化方式
+     * @param codecType
+     */
+    public void setCodecType(String codecType) {
+        this.codecType = codecType;
+    }
+
+    /**
+     * 设置序列化方式
+     * @param codecType
+     */
+    public void setCodec(CodecType codecType) {
+        this.codecType = codecType.getSimpleName();
+    }
 
     /**
      * 通过具体信息获取配置
@@ -102,7 +125,7 @@ public class RpcClientConfig extends RpcConfig {
         private int timeout = Constants.DEFAULT_TIMEOUT;
         private boolean check = true;
         private String remoteAddress;
-        private CodecType codecType = CodecType.CODEC_TYPE_JSON;
+        private String codecType = CodecType.CODEC_TYPE_JSON.getSimpleName();
         private String transporterType = Constants.DEFAULT_TRANSPORTER;
         private RpcMetadata metadata = RpcMetadata.getDefault();
         private Map<String, RpcMethodConfig> methodConfigMap = new ConcurrentHashMap<>(16);
@@ -132,8 +155,13 @@ public class RpcClientConfig extends RpcConfig {
             return this;
         }
 
-        public RpcClientConfigBuilder codecType(CodecType codecType) {
+        public RpcClientConfigBuilder codecType(String codecType) {
             this.codecType = codecType;
+            return this;
+        }
+
+        public RpcClientConfigBuilder codecType(CodecType codecType) {
+            this.codecType = codecType.getSimpleName();
             return this;
         }
 

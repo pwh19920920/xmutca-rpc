@@ -2,7 +2,6 @@ package com.xmutca.rpc.provider.facade;
 
 import com.xmutca.rpc.core.provider.Provider;
 import com.xmutca.rpc.example.api.HelloService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,11 +13,8 @@ import org.springframework.stereotype.Component;
 @Provider(interfaceClass = HelloService.class)
 public class HelloServiceImpl implements HelloService {
 
-    @Autowired
-    private TestService testService;
-
     @Override
     public String sayHello(String msg) {
-        return testService.test() + " -> " + msg;
+        return msg;
     }
 }

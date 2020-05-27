@@ -30,6 +30,7 @@
 		<xmutca-rpc.version>0.0.1-SNAPSHOT</xmutca-rpc.version>
 		<nacos.version>1.2.1</nacos.version>
 		<kryo-shaded.version>4.0.1</kryo-shaded.version>
+		<protostuff.version>1.7.2</protostuff.version>
 	</properties>
 
 	<dependencyManagement>
@@ -93,6 +94,18 @@
 				<groupId>com.alibaba.nacos</groupId>
 				<artifactId>nacos-client</artifactId>
 				<version>${nacos.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>io.protostuff</groupId>
+				<artifactId>protostuff-core</artifactId>
+				<version>${protostuff.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>io.protostuff</groupId>
+				<artifactId>protostuff-runtime</artifactId>
+				<version>${protostuff.version}</version>
 			</dependency>
 
 			<!-- 反射 -->

@@ -15,7 +15,8 @@ public enum CodecType {
      * JSON序列化
      */
     CODEC_TYPE_JSON((byte)0x01, "json", "JSON序列化"),
-    CODEC_TYPE_KRYO((byte)0x02, "kryo", "KRYO序列化");
+    CODEC_TYPE_KRYO((byte)0x02, "kryo", "KRYO序列化"),
+    CODEC_TYPE_PROTO_STUFF((byte)0x03, "protoStuff", "ProtoStuff序列化");
 
     private byte type;
 
@@ -45,6 +46,7 @@ public enum CodecType {
      * map
      */
     private static final Map<Byte, CodecType> map = new ConcurrentHashMap<>();
+    private static final Map<String, CodecType> simpleNameMap = new ConcurrentHashMap<>();
 
     /**
      * 获取解码类型
@@ -66,6 +68,28 @@ public enum CodecType {
             }
         }
         return map.get(type);
+    }
+
+    /**
+     * 获取解码类型
+     * @param simpleName
+     * @return
+     */
+    public static CodecType get(String simpleName) {
+        if (!simpleNameMap.isEmpty()) {
+            return simpleNameMap.get(simpleName);
+        }
+
+        synchronized (simpleNameMap) {
+            if (!simpleNameMap.isEmpty()) {
+                return simpleNameMap.get(simpleName);
+            }
+
+            for (CodecType codecType : CodecType.values()) {
+                simpleNameMap.put(codecType.simpleName, codecType);
+            }
+        }
+        return simpleNameMap.get(simpleName);
     }
 
     /**
