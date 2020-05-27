@@ -16,10 +16,10 @@ public interface Codec {
 
     /**
      * 解密
+     * @param <T>
      * @param bytes
      * @param clazz
-     * @param <T>
      * @return
      */
-    <T> T decode(byte[] bytes, Class<?> clazz);
+    <T> Object decode(byte[] bytes, Class<T> clazz);
 }

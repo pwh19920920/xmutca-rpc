@@ -1,1 +1,2 @@
+kryo=com.xmutca.rpc.core.serialize.impl.kryo.KryoCodec
 json=com.xmutca.rpc.core.serialize.impl.json.JsonCodec

@@ -14,7 +14,8 @@ public enum CodecType {
     /**
      * JSON序列化
      */
-    CODEC_TYPE_JSON((byte)0x01, "json", "JSON序列化");
+    CODEC_TYPE_JSON((byte)0x01, "json", "JSON序列化"),
+    CODEC_TYPE_KRYO((byte)0x02, "kryo", "KRYO序列化");
 
     private byte type;
 

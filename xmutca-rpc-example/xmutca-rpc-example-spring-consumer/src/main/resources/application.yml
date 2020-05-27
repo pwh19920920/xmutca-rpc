@@ -2,6 +2,7 @@ rpc:
   registry: nacos://localhost:8848
   consumer:
     - timeout: 1000
+      codecType: CODEC_TYPE_KRYO
       metadata:
         group: "order"
         serviceName: "test"

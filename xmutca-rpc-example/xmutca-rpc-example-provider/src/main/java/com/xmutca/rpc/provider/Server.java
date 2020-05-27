@@ -1,6 +1,5 @@
 package com.xmutca.rpc.provider;
 
-import com.alibaba.nacos.api.exception.NacosException;
 import com.xmutca.rpc.core.config.RpcMetadata;
 import com.xmutca.rpc.core.config.RpcServerConfig;
 import com.xmutca.rpc.core.rpc.exchange.ServerExchange;

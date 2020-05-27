@@ -1,22 +1,20 @@
-package com.xmutca.rpc.core.serialize.impl.json;
+package com.xmutca.rpc.core.serialize.impl.kryo;
 
-import com.alibaba.fastjson.JSON;
 import com.xmutca.rpc.core.serialize.Codec;
 
 /**
  * @version Revision: 0.0.1
  * @author: weihuang.peng
- * @Date: 2019-10-28
+ * @Date: 2020/5/27
  */
-public class JsonCodec implements Codec {
-
+public class KryoCodec implements Codec {
     @Override
     public byte[] encode(Object obj) {
-        return JSON.toJSONBytes(obj);
+        return KryoUtils.serialize(obj);
     }
 
     @Override
     public <T> T decode(byte[] bytes, Class<T> clazz) {
-        return JSON.parseObject(bytes, clazz);
+        return KryoUtils.deserialize(bytes, clazz);
     }
 }

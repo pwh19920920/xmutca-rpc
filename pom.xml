@@ -29,6 +29,7 @@
 		<fastjson.version>1.2.60</fastjson.version>
 		<xmutca-rpc.version>0.0.1-SNAPSHOT</xmutca-rpc.version>
 		<nacos.version>1.2.1</nacos.version>
+		<kryo-shaded.version>4.0.1</kryo-shaded.version>
 	</properties>
 
 	<dependencyManagement>
@@ -57,12 +58,6 @@
 			</dependency>
 
 			<dependency>
-				<groupId>com.alibaba</groupId>
-				<artifactId>fastjson</artifactId>
-				<version>${fastjson.version}</version>
-			</dependency>
-
-			<dependency>
 				<groupId>com.google.guava</groupId>
 				<artifactId>guava</artifactId>
 				<version>${guava.version}</version>
@@ -81,6 +76,18 @@
 				<version>${commons-lang3.version}</version>
 			</dependency>
 
+			<!-- 序列化 -->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>${fastjson.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.esotericsoftware</groupId>
+				<artifactId>kryo-shaded</artifactId>
+				<version>${kryo-shaded.version}</version>
+			</dependency>
 
 			<dependency>
 				<groupId>com.alibaba.nacos</groupId>
