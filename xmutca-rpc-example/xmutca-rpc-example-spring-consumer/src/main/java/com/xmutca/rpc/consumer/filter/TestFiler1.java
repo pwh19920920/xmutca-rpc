@@ -1,7 +1,8 @@
-package com.xmutca.rpc.core.rpc.filter;
+package com.xmutca.rpc.consumer.filter;
 
 import com.xmutca.rpc.core.common.ExtensionGroup;
 import com.xmutca.rpc.core.common.ExtensionWrapper;
+import com.xmutca.rpc.core.rpc.filter.Filter;
 import com.xmutca.rpc.core.rpc.invoke.Invoker;
 import com.xmutca.rpc.core.rpc.RpcRequest;
 import com.xmutca.rpc.core.rpc.RpcResponse;
