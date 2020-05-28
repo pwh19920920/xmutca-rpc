@@ -18,7 +18,7 @@ public interface RegistryFactory {
      * @param registryAddress
      * @throws Exception
      */
-    void registry(RpcServerConfig serverConfig, String registryAddress) throws Exception;
+    void registry(RpcServerConfig serverConfig, String registryAddress);
 
     /**
      * 发现
@@ -26,5 +26,5 @@ public interface RegistryFactory {
      * @param registryAddress
      * @throws Exception
      */
-    void subscribe(List<RpcMetadata> metadataList, String registryAddress) throws Exception;
+    void subscribe(List<RpcMetadata> metadataList, String registryAddress) ;
 }

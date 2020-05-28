@@ -5,6 +5,7 @@ import com.xmutca.rpc.core.config.RpcMetadata;
 import com.xmutca.rpc.core.config.RpcServerConfig;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.Objects;
  * @version Revision: 0.0.1
  * @author weihuang.peng
  */
+@Slf4j
 public class RegistryWrapper {
 
     private RegistryWrapper() {}
@@ -36,11 +38,8 @@ public class RegistryWrapper {
         }
 
         // 注册到服务
-        try {
-            registryFactory.registry(serverConfig, registryInfo.getRegistryAddress());
-        } catch (Exception ex) {
-            // 注册失败
-        }
+        registryFactory.registry(serverConfig, registryInfo.getRegistryAddress());
+        log.info("服务注册成功, registry for {}", registryInfo.getRegistryAddress());
     }
 
     /**
@@ -67,12 +66,8 @@ public class RegistryWrapper {
         }
 
         // 发现服务
-        try {
-            registryFactory.subscribe(metadataList, registryInfo.getRegistryAddress());
-        } catch (Exception ex) {
-            // 发现失败
-            ex.printStackTrace();
-        }
+        registryFactory.subscribe(metadataList, registryInfo.getRegistryAddress());
+        log.info("服务发现成功, registry for {}", registryInfo.getRegistryAddress());
     }
 
     @Getter

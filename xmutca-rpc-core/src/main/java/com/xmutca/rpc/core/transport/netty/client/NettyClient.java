@@ -34,6 +34,7 @@ public class NettyClient extends AbstractClient {
     @Override
     protected void doOpen() {
         bootstrap = new Bootstrap();
+        NettyClientHandler nettyClientHandler = new NettyClientHandler(this, getRpcClientConfig(), getRemoteAddress());
         bootstrap.group(workerGroup)
                 .channel(NioSocketChannel.class)
                 .option(ChannelOption.TCP_NODELAY, true)
@@ -47,7 +48,7 @@ public class NettyClient extends AbstractClient {
                         pipeline.addLast("decoder", new NettyDecoder(RpcResponse.class));
                         pipeline.addLast("encoder", new NettyEncoder());
                         pipeline.addLast("idleCheck", new IdleStateHandler(0, Constants.DEFAULT_WRITER_IDLE_TIME_SECONDS, 0, TimeUnit.SECONDS));
-                        pipeline.addLast("handler", new NettyClientHandler());
+                        pipeline.addLast("handler", nettyClientHandler);
                     }
                 });
     }
@@ -67,8 +68,12 @@ public class NettyClient extends AbstractClient {
                 // copy reference
                 Channel oldChannel = channel;
                 if (null != oldChannel) {
-                    log.info("Close old netty channel on create new netty channel");
-                    oldChannel.close();
+                    try {
+                        log.info("Close old netty channel on create new netty channel");
+                        oldChannel.close();
+                    } finally {
+                        removeIfDisconnect(oldChannel);
+                    }
                 }
             } finally {
                 // 如果client关闭
@@ -78,6 +83,7 @@ public class NettyClient extends AbstractClient {
                         newChannel.close();
                     } finally {
                         channel = null;
+                        removeIfDisconnect(newChannel);
                     }
                 } else {
                     channel = newChannel;
@@ -90,6 +96,16 @@ public class NettyClient extends AbstractClient {
             throw new RpcException("failed to connect to server, error message is " + future.cause().getMessage(), future.cause());
         } else {
             throw new RpcException("failed to connect to server, client-side timeout");
+        }
+    }
+
+    /**
+     * 如果不活跃才删除，活跃不删除
+     * @param channel
+     */
+    private void removeIfDisconnect(Channel channel) {
+        if (channel != null && !channel.isActive()) {
+            ClientPool.removeClient(getRpcClientConfig().getMetadata(), getRemoteAddress(), this);
         }
     }
 

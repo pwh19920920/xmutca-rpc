@@ -1,6 +1,6 @@
 package com.xmutca.rpc.registry.nacos;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.NamingService;
 import com.alibaba.nacos.api.naming.listener.NamingEvent;
 import com.alibaba.nacos.api.naming.pojo.Instance;
@@ -11,6 +11,7 @@ import com.xmutca.rpc.core.config.RpcClientConfig;
 import com.xmutca.rpc.core.config.RpcMetadata;
 import com.xmutca.rpc.core.config.RpcServerConfig;
 import com.xmutca.rpc.core.consumer.ConsumerConfigHolder;
+import com.xmutca.rpc.core.exception.RegistryException;
 import com.xmutca.rpc.core.rpc.registry.RegistryFactory;
 import com.xmutca.rpc.core.transport.Client;
 import com.xmutca.rpc.core.transport.ClientPool;
@@ -30,10 +31,9 @@ import java.util.Objects;
 public class NacosRegistryFactory implements RegistryFactory {
 
     @Override
-    public void registry(RpcServerConfig serverConfig, String registryAddress) throws Exception {
+    public void registry(RpcServerConfig serverConfig, String registryAddress) {
         // 获取服务
         RpcMetadata metadata = serverConfig.getMetadata();
-        NamingService naming = NacosHolder.getNaming(registryAddress);
 
         // 实例参数
         Instance instance = new Instance();
@@ -41,30 +41,39 @@ public class NacosRegistryFactory implements RegistryFactory {
         instance.setPort(serverConfig.getPort());
         instance.addMetadata(Constants.REGISTER_SERVICE_NAME, metadata.getUniqueMetaName());
 
-        // 发布注册
-        naming.registerInstance(metadata.getUniqueMetaName(), metadata.getGroup(), instance);
+        try {
+            // 发布注册
+            NamingService naming = NacosHolder.getNaming(registryAddress);
+            naming.registerInstance(metadata.getUniqueMetaName(), metadata.getGroup(), instance);
+        } catch (NacosException ex) {
+            throw new RegistryException("服务注册失败", ex);
+        }
     }
 
     @Override
-    public void subscribe(List<RpcMetadata> metadataList, String registryAddress) throws Exception {
-        // metadataMap这部分需要利用元数据发现并连接 + 监听 + 心跳
-        NamingService naming = NacosHolder.getNaming(registryAddress);
+    public void subscribe(List<RpcMetadata> metadataList, String registryAddress) {
+        try {
+            // metadataMap这部分需要利用元数据发现并连接 + 监听 + 心跳
+            NamingService naming = NacosHolder.getNaming(registryAddress);
 
-        for (RpcMetadata meta : metadataList) {
-            // 对已经上线的进行配置化
-            List<Instance> instances = naming.selectInstances(meta.getUniqueMetaName(), meta.getGroup(), true);
-            batchCheckAndConnect(instances);
+            for (RpcMetadata meta : metadataList) {
+                // 对已经上线的进行配置化
+                List<Instance> instances = naming.selectInstances(meta.getUniqueMetaName(), meta.getGroup(), true);
+                batchCheckAndConnect(instances);
 
-            // 监听事件，针对未来变化
-            naming.subscribe(meta.getUniqueMetaName(), meta.getGroup(), event -> {
-                // 非NamingEvent事件，直接返回
-                if (!(event instanceof NamingEvent)) {
-                    return;
-                }
+                // 监听事件，针对未来变化
+                naming.subscribe(meta.getUniqueMetaName(), meta.getGroup(), event -> {
+                    // 非NamingEvent事件，直接返回
+                    if (!(event instanceof NamingEvent)) {
+                        return;
+                    }
 
-                // 批量检查并连接
-                batchCheckAndConnect(((NamingEvent) event).getInstances());
-            });
+                    // 批量检查并连接
+                    batchCheckAndConnect(((NamingEvent) event).getInstances());
+                });
+            }
+        } catch (Exception ex) {
+            throw new RegistryException("服务订阅失败", ex);
         }
     }
 

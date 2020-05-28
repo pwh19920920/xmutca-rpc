@@ -71,7 +71,7 @@ public class ClientPool {
             metaDataGroups.addIfAbsent(client);
 
             // 返回到map
-            metaDataGroupMap.putIfAbsent(metadata.getUniqueMetaName(), metaDataGroups);
+            metaDataGroupMap.put(metadata.getUniqueMetaName(), metaDataGroups);
         } finally {
             lock.unlock();
         }

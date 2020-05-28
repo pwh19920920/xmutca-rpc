@@ -2,8 +2,11 @@ package com.xmutca.rpc.core.transport.netty.client;
 
 import com.xmutca.rpc.core.common.Constants;
 import com.xmutca.rpc.core.common.TransportType;
-import com.xmutca.rpc.core.rpc.RpcResponse;
+import com.xmutca.rpc.core.config.RpcClientConfig;
 import com.xmutca.rpc.core.rpc.RpcFuture;
+import com.xmutca.rpc.core.rpc.RpcResponse;
+import com.xmutca.rpc.core.transport.Client;
+import com.xmutca.rpc.core.transport.ClientPool;
 import com.xmutca.rpc.core.transport.Transporter;
 import com.xmutca.rpc.core.transport.netty.AbstractHandler;
 import io.netty.channel.ChannelHandlerContext;
@@ -11,18 +14,32 @@ import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 import lombok.extern.slf4j.Slf4j;
 
+import java.net.InetSocketAddress;
+
+import static io.netty.channel.ChannelHandler.Sharable;
+
 /**
  * @version Revision: 0.0.1
  * @author: weihuang.peng
  * @Date: 2019-01-02
  */
 @Slf4j
+@Sharable
 public class NettyClientHandler extends AbstractHandler {
 
     /**
      * 上一次的交互时间
      */
     private long lastTime = System.currentTimeMillis();
+    private final Client client;
+    private final RpcClientConfig rpcClientConfig;
+    private final InetSocketAddress remoteAddress;
+
+    public NettyClientHandler(Client client, RpcClientConfig rpcClientConfig, InetSocketAddress remoteAddress) {
+        this.client = client;
+        this.remoteAddress = remoteAddress;
+        this.rpcClientConfig = rpcClientConfig;
+    }
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Transporter msg) {
@@ -34,6 +51,18 @@ public class NettyClientHandler extends AbstractHandler {
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         log.error("netty client caught exception", cause);
         ctx.close();
+    }
+
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        super.channelActive(ctx);
+        ClientPool.addClient(rpcClientConfig.getMetadata(), remoteAddress, client);
+    }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        super.channelInactive(ctx);
+        ClientPool.removeClient(rpcClientConfig.getMetadata(), remoteAddress, client);
     }
 
     @Override
