@@ -6,7 +6,7 @@
 		<groupId>com.xmutca</groupId>
 		<artifactId>xmutca-rpc</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath/>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<artifactId>xmutca-rpc-registry-nacos</artifactId>
