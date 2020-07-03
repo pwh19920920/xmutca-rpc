@@ -29,11 +29,11 @@ public class Client {
         RpcClientConfig rpcConfig = RpcClientConfig.RpcClientConfigBuilder
                 .config()
                 .timeout(1000)
-//                .remoteAddress("59.110.25.17:8888")
+//                .remoteAddress("127.0.0.1:8888")
                 .metadata(rpcMetadata)
                 .build();
 
-        ClientExchange.start(Arrays.asList(rpcConfig), "nacos://59.110.25.17:8848");
+        ClientExchange.start(Arrays.asList(rpcConfig), "nacos://127.0.0.1:8848");
 
         GenericInvoker invoker = GenericProxyFactory
                 .factory("com.xmutca.rpc.example.api.HelloService")
