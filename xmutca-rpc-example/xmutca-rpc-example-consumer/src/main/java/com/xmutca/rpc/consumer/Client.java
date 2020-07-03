@@ -18,7 +18,7 @@ import java.util.Arrays;
  * @Date: 2020/5/21
  */
 public class Client {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         RpcMetadata rpcMetadata = RpcMetadata.RpcMetadataBuilder
                 .rpcMetadata()
                 .group("order")
@@ -29,14 +29,14 @@ public class Client {
         RpcClientConfig rpcConfig = RpcClientConfig.RpcClientConfigBuilder
                 .config()
                 .timeout(1000)
-                .remoteAddress("localhost:8888")
+//                .remoteAddress("59.110.25.17:8888")
                 .metadata(rpcMetadata)
                 .build();
 
-        ClientExchange.start(Arrays.asList(rpcConfig), "nacos://localhost:8848");
+        ClientExchange.start(Arrays.asList(rpcConfig), "nacos://59.110.25.17:8848");
 
         GenericInvoker invoker = GenericProxyFactory
-                .factory(HelloService.class)
+                .factory("com.xmutca.rpc.example.api.HelloService")
                 .metadata(rpcMetadata)
                 .newProxyInstance();
         Object result = invoker.invoke("sayHello", new Class[]{String.class}, new Object[]{"sb"});

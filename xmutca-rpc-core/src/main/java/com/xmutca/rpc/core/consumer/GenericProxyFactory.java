@@ -43,6 +43,18 @@ public class GenericProxyFactory {
     }
 
     /**
+     * get factory
+     *
+     * @param targetName
+     * @return
+     */
+    public static GenericProxyFactory factory(String targetName) throws ClassNotFoundException {
+        GenericProxyFactory factory = new GenericProxyFactory();
+        factory.target = Class.forName(targetName);
+        return factory;
+    }
+
+    /**
      * set metadata
      *
      * @param metadata
