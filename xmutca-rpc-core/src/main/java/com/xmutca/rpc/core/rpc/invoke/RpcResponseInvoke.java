@@ -22,8 +22,8 @@ public class RpcResponseInvoke implements Invoker<RpcRequest, RpcResponse> {
 
     /**
      * 导出提供者
-     * @param className
-     * @param object
+     * @param className 类名
+     * @param object 目标对象
      */
     public static void addProvider(String className, Object object) {
         EXPORT_PROVIDER.putIfAbsent(className, object);
@@ -31,8 +31,8 @@ public class RpcResponseInvoke implements Invoker<RpcRequest, RpcResponse> {
 
     /**
      * 执行具体方法
-     * @param rpcRequest
-     * @return
+     * @param rpcRequest 请求对象
+     * @return 返回结果
      */
     @Override
     public RpcResponse invoke(RpcRequest rpcRequest) {
@@ -41,7 +41,7 @@ public class RpcResponseInvoke implements Invoker<RpcRequest, RpcResponse> {
         RpcResponse rpcResponse = new RpcResponse();
         Object serviceBean = EXPORT_PROVIDER.get(rpcRequest.getClassName());
         if (null == serviceBean) {
-            rpcResponse.setException(new RpcException("provider not found"));
+            rpcResponse.setException(new RpcException("provider service not found"));
             return rpcResponse;
         }
 

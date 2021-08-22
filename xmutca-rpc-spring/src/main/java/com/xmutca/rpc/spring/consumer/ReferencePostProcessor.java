@@ -3,6 +3,7 @@ package com.xmutca.rpc.spring.consumer;
 import com.xmutca.rpc.core.config.RpcMetadata;
 import com.xmutca.rpc.core.consumer.GenericProxyFactory;
 import com.xmutca.rpc.core.consumer.Reference;
+import com.xmutca.rpc.core.exception.ReferenceException;
 import com.xmutca.rpc.core.rpc.exchange.ClientExchange;
 import com.xmutca.rpc.spring.common.XmutcaRpcProperties;
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +37,7 @@ public class ReferencePostProcessor implements BeanPostProcessor {
     }
 
     private void processRpcReference(Object bean) {
-        Class beanClass = bean.getClass();
+        Class<?> beanClass = bean.getClass();
         do {
             Field[] fields = beanClass.getDeclaredFields();
             for (Field field : fields) {
@@ -48,16 +49,18 @@ public class ReferencePostProcessor implements BeanPostProcessor {
                     rpcMetadata.setServiceName(reference.serviceName());
                     rpcMetadata.setVersion(reference.version());
 
-                    // 生成引用
-                    Object instance = GenericProxyFactory
-                            .factory(field.getType())
-                            .metadata(rpcMetadata)
-                            .getReferenceBean();
+
                     try {
+                        // 生成引用
+                        Object instance = GenericProxyFactory
+                                .factory(field.getType())
+                                .metadata(rpcMetadata)
+                                .getReferenceBean();
                         field.setAccessible(true);
                         field.set(bean, instance);
-                    } catch (IllegalAccessException e) {
+                    } catch (IllegalAccessException | ClassNotFoundException e) {
                         log.error(e.getMessage());
+                        throw new ReferenceException(e);
                     }
                 }
             }

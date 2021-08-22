@@ -31,6 +31,8 @@
 		<nacos.version>1.2.1</nacos.version>
 		<kryo-shaded.version>4.0.1</kryo-shaded.version>
 		<protostuff.version>1.7.2</protostuff.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
 
 	<dependencyManagement>

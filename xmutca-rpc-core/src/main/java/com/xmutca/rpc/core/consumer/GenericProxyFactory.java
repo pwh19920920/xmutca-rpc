@@ -3,11 +3,11 @@ package com.xmutca.rpc.core.consumer;
 import com.xmutca.rpc.core.common.ExtensionLoader;
 import com.xmutca.rpc.core.config.RpcClientConfig;
 import com.xmutca.rpc.core.config.RpcMetadata;
-import org.assertj.core.util.Preconditions;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * @version Revision: 0.0.1
@@ -28,16 +28,21 @@ public class GenericProxyFactory {
     /**
      * 类名
      */
+    private String targetName;
+
+    /**
+     * 类元
+     */
     private Class<?> target;
 
     /**
      * get factory
-     *
-     * @param target
-     * @return
+     * @param target 目标接口
+     * @return 返回工厂
      */
     public static GenericProxyFactory factory(Class<?> target) {
         GenericProxyFactory factory = new GenericProxyFactory();
+        factory.targetName = target.getName();
         factory.target = target;
         return factory;
     }
@@ -45,12 +50,12 @@ public class GenericProxyFactory {
     /**
      * get factory
      *
-     * @param targetName
-     * @return
+     * @param targetName 目标接口
+     * @return 返回工厂
      */
     public static GenericProxyFactory factory(String targetName) throws ClassNotFoundException {
         GenericProxyFactory factory = new GenericProxyFactory();
-        factory.target = Class.forName(targetName);
+        factory.targetName = targetName;
         return factory;
     }
 
@@ -71,8 +76,9 @@ public class GenericProxyFactory {
      * @param <T>
      * @return
      */
-    public <T> T getReferenceBean() {
+    public <T> T getReferenceBean() throws ClassNotFoundException {
         GenericInvoker invoker = this.newProxyInstance();
+        target = Objects.isNull(target) ? Class.forName(targetName) : target;
         return (T) Proxy.newProxyInstance(
                 Thread.currentThread().getContextClassLoader(),
                 new Class[]{target},
@@ -100,7 +106,7 @@ public class GenericProxyFactory {
         // new and init
         LoadBalancer loadBalancer = ExtensionLoader.getExtensionLoader(LoadBalancer.class).newInstanceForMethod(rpcClientConfig.getLoadBalancer(), "getInstance");
         ClusterInvoker cluster = ExtensionLoader.getExtensionLoader(ClusterInvoker.class).newInstance(rpcClientConfig.getCluster());
-        cluster.init(rpcClientConfig.getMetadata(), loadBalancer, rpcClientConfig, target.getName());
+        cluster.init(rpcClientConfig.getMetadata(), loadBalancer, rpcClientConfig, targetName);
         return cluster;
     }
 }
