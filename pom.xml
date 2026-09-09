@@ -26,7 +26,7 @@
 		<commons-lang3.version>3.9</commons-lang3.version>
 		<slf4j-api.version>1.7.21</slf4j-api.version>
 		<logback.version>1.1.7</logback.version>
-		<fastjson.version>1.2.60</fastjson.version>
+		<fastjson.version>1.2.83</fastjson.version>
 		<xmutca-rpc.version>0.0.1-SNAPSHOT</xmutca-rpc.version>
 		<nacos.version>1.2.1</nacos.version>
 		<kryo-shaded.version>4.0.1</kryo-shaded.version>
